@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace CommandLine
 {
@@ -10,12 +8,8 @@ namespace CommandLine
         private static readonly List<Parameter> SupportedParameters = new()
         {
             new Parameter('#', s => int.Parse(s), null),
-            new Parameter('*', s => s, null),
-            new Parameter('+', s => float.Parse(s), null),
-            new Parameter('$', IPAddress.Parse, null),
-            new Parameter('%', s => DateTime.Parse(s), null),
             new Parameter('?', _ => true, false),
-            new Parameter('&', Convert.FromBase64String, Array.Empty<byte>())
+            new Parameter('*', s => s, null)
         };
 
         private static readonly Dictionary<char, Parameter> SymbolToParameterMap =
