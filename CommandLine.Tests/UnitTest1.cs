@@ -40,22 +40,5 @@ namespace CommandLine.Tests
 
             Assert.AreEqual(expectedValue, args.Get<bool>("f"));
         }
-
-        [TestCase("w*", "w", "-wHallo", "Hallo")]
-        [TestCase("ab*", "ab", "-abFoo", "Foo")]
-        [TestCase("wort*", "wort", "-wortHallo", "Hallo")]
-        [TestCase("wort*", "wort", "-WORTHallo", "Hallo")]
-        [TestCase("wort*", "WORT", "-wortHallo", "Hallo")]
-        [TestCase("wort*", "WORT", "-WORTHallo", "Hallo")]
-        [TestCase("WORT*", "wort", "-wortHallo", "Hallo")]
-        [TestCase("WORT*", "wort", "-WORTHallo", "Hallo")]
-        [TestCase("WORT*", "WORT", "-wortHallo", "Hallo")]
-        [TestCase("WORT*", "WORT", "-WORTHallo", "Hallo")]
-        public void MultiCharArgs(string schema, string key, string arg, string expectedValue)
-        {
-            var args = ArgsProvider.Provide(schema, new[] { arg });
-
-            Assert.AreEqual(expectedValue, args.Get<string>(key));
-        }
     }
 }
