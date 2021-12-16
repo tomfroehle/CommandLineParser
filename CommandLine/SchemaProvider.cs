@@ -21,13 +21,13 @@ namespace CommandLine
         private static readonly Dictionary<char, SchemaParameter> SymbolToParameterMap =
             SupportedParameters.ToDictionary(c => c.Symbol);
 
-
         public static Dictionary<string, SchemaParameter> Provide(string schemaDefinition)
         {
             return schemaDefinition.Split(',')
+                .Select(s => (identifier: s[..^1], symbol: s[^1]))
                 .ToDictionary(
-                    part => part[..^1],
-                    part => SymbolToParameterMap[part[^1]]
+                    schemaPart => schemaPart.identifier,
+                    schemaPart => SymbolToParameterMap[schemaPart.symbol]
                 );
         }
     }
