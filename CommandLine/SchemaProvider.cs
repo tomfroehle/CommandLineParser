@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace CommandLine
 {
@@ -8,8 +10,12 @@ namespace CommandLine
         private static readonly List<SchemaParameter> SupportedParameters = new()
         {
             new SchemaParameter('#', s => int.Parse(s), null),
+            new SchemaParameter('*', s => s, null),
+            new SchemaParameter('+', s => float.Parse(s), null),
+            new SchemaParameter('$', IPAddress.Parse, null),
+            new SchemaParameter('%', s => DateTime.Parse(s), null),
             new SchemaParameter('?', _ => true, false),
-            new SchemaParameter('*', s => s, null)
+            new SchemaParameter('&', Convert.FromBase64String, Array.Empty<byte>())
         };
 
         private static readonly Dictionary<char, SchemaParameter> SymbolToParameterMap =
