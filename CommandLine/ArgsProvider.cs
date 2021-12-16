@@ -11,7 +11,7 @@ namespace CommandLine
             return GetArgs(args, schema);
         }
 
-        private static Args GetArgs(string[] args, Dictionary<string, Parameter> parameters)
+        private static Args GetArgs(string[] args, Dictionary<string, SchemaParameter> parameters)
         {
             var values = new Dictionary<string, object>();
 

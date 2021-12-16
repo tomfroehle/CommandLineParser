@@ -5,18 +5,18 @@ namespace CommandLine
 {
     public static class SchemaProvider
     {
-        private static readonly List<Parameter> SupportedParameters = new()
+        private static readonly List<SchemaParameter> SupportedParameters = new()
         {
-            new Parameter('#', s => int.Parse(s), null),
-            new Parameter('?', _ => true, false),
-            new Parameter('*', s => s, null)
+            new SchemaParameter('#', s => int.Parse(s), null),
+            new SchemaParameter('?', _ => true, false),
+            new SchemaParameter('*', s => s, null)
         };
 
-        private static readonly Dictionary<char, Parameter> SymbolToParameterMap =
+        private static readonly Dictionary<char, SchemaParameter> SymbolToParameterMap =
             SupportedParameters.ToDictionary(c => c.Symbol);
 
 
-        public static Dictionary<string, Parameter> Provide(string schemaDefinition)
+        public static Dictionary<string, SchemaParameter> Provide(string schemaDefinition)
         {
             return schemaDefinition.Split(',')
                 .ToDictionary(
