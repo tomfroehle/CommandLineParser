@@ -40,5 +40,13 @@ namespace CommandLine.Tests
 
             Assert.AreEqual(expectedValue, args.Get<bool>("f"));
         }
+
+        [Test]
+        public void ArrayCases()
+        {
+            var args = ArgsProvider.Provide("s*", new[] { "-sA", "-sB" });
+
+            Assert.AreEqual(new[] { "A", "B" }, args.GetArray<string>("s"));
+        }
     }
 }

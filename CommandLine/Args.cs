@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CommandLine
 {
@@ -21,6 +22,18 @@ namespace CommandLine
                 T value => value,
                 _ => throw new InvalidOperationException(
                     $"Expected type of parameter {parameterKey} to be {typeof(T)} but was {_values[parameterKey].GetType()}")
+            };
+        }
+
+        public T[] GetArray<T>(string key)
+        {
+            var parameterKey = key.ToLowerInvariant();
+            return _values[parameterKey] switch
+            {
+                null => default,
+                object[] values => values.Cast<T>().ToArray(),
+                _ => throw new InvalidOperationException(
+                    $"Expected type of parameter {parameterKey} to be Object[] but was {_values[parameterKey].GetType()}")
             };
         }
     }

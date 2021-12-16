@@ -17,10 +17,24 @@ namespace CommandLine
 
             foreach (var (parameterKey, parameter) in parameters)
             {
-                var arg = args.SingleOrDefault(a => a.StartsWith($"-{parameterKey}"));
-                var value = arg?.Replace($"-{parameterKey}", string.Empty);
-                var parsedValue = value is null ? parameter.Fallback : parameter.Parse(value);
-                values.Add(parameterKey, parsedValue);
+                var arg = args.Where(a => a.StartsWith($"-{parameterKey}")).ToList();
+
+                if (arg.Count == 0)
+                {
+                    values.Add(parameterKey, parameter.Fallback);
+                }
+                else if (arg.Count == 1)
+                {
+                    var value = arg.Single().Replace($"-{parameterKey}", string.Empty);
+                    var parsedValue = parameter.Parse(value);
+                    values.Add(parameterKey, parsedValue);
+                }
+                else
+                {
+                    var parsedValues = arg.Select(s => s.Replace($"-{parameterKey}", string.Empty))
+                        .Select(s => parameter.Parse(s)).ToArray();
+                    values.Add(parameterKey, parsedValues);
+                }
             }
 
             return new Args(values);
