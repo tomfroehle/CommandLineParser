@@ -15,12 +15,13 @@ namespace CommandLine
         public T Get<T>(string key)
         {
             var parameterKey = key.ToLowerInvariant();
-            return _values[parameterKey] switch
+            var parameterValue = _values[parameterKey];
+            return parameterValue switch
             {
                 null => default,
                 T value => value,
                 _ => throw new InvalidOperationException(
-                    $"Expected type of parameter {parameterKey} to be {typeof(T)} but was {_values[parameterKey].GetType()}")
+                    $"Expected type of parameter {parameterKey} to be {typeof(T)} but was {parameterValue.GetType()}")
             };
         }
     }
