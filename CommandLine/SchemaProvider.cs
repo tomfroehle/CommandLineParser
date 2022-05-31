@@ -18,11 +18,11 @@ namespace CommandLine
 
         public static Dictionary<string, SchemaParameter> Provide(string schemaDefinition)
         {
-            return schemaDefinition.Split(',')
-                .ToDictionary(
-                    part => part[..^1],
-                    part => SymbolToParameterMap[part[^1]]
-                );
+            var schemaParts = schemaDefinition.Split(',');
+            return schemaParts.ToDictionary(
+                part => part[..^1],
+                part => SymbolToParameterMap[part[^1]]
+            );
         }
     }
 }
